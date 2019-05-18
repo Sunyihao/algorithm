@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Random;
 
 public class algorithm {
@@ -31,9 +28,54 @@ public class algorithm {
         fw.write("\r\n");
         fw.flush();
         fw.close();
-
     }
-
+    static int[][] FindMaxStrngArray(String[] Str1,String[] Str2){
+        int[][] b = new int[Str1.length][Str2.length];
+        int[][] c = new int[Str1.length][Str2.length];
+        for(int i=1; i<Str1.length; i++)
+        {
+            for(int j=1; j<Str2.length; j++)
+            {
+                //对应第一个性质
+                if( Str1[i] == Str2[j])
+                {
+                    c[i][j] = c[i-1][j-1] + 1;
+                    b[i][j] = 1;
+                }
+                //对应第二或者第三个性质
+                else if(c[i-1][j] >= c[i][j-1])
+                {
+                    c[i][j] = c[i-1][j];
+                    b[i][j] = 0;
+                }
+                //对应第二或者第三个性质
+                else
+                {
+                    c[i][j] = c[i][j-1];
+                    b[i][j] = -1;
+                }
+            }
+        }
+        return b;
+    }
+    public static void Display(int[][] b, String[] x, int i, int j)
+    {
+        if(i == 0 || j == 0)
+            return;
+        if(b[i][j] == 1)
+        {
+            Display(b, x, i-1, j-1);
+            System.out.print(x[i] + " ");
+        }
+        else if(b[i][j] == 0)
+        {
+            Display(b, x, i-1, j);
+        }
+        else if(b[i][j] == -1)
+        {
+            Display(b, x, i, j-1);
+        }
+    }
     public static void main(String[] args) throws IOException {
         for(int i = 0;i < 2;i++){
             create_String(22);
