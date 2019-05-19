@@ -1,5 +1,9 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
+
+import static java.lang.reflect.Array.getLength;
+
 
 public class algorithm {
     static String ReadPath = "D://date/input.txt";
@@ -76,9 +80,44 @@ public class algorithm {
             Display(b, x, i, j-1);
         }
     }
+
     public static void main(String[] args) throws IOException {
-        for(int i = 0;i < 2;i++){
-            create_String(22);
+//        for(int i = 0;i < 2;i++){
+//            create_String(22);
+//        }
+        ArrayList<String> arrayList = new ArrayList<>();
+        FileReader fr = new FileReader(ReadPath2);
+        BufferedReader bf = new BufferedReader(fr);
+        String str;
+        while ((str = bf.readLine()) != null){
+            arrayList.add(str);
         }
+        bf.close();
+        fr.close();
+        int length = arrayList.size();
+        String[] arraystring = new String[length];
+
+        for(int i = 0;i<length;i++){
+//            String s = arrayList.get(i);
+//            arraystring[i] = s;
+            arraystring[i] = arrayList.get(i);
+        }
+        String[] s1 = new String[arraystring[0].length()];
+        String[] s2 = new String[arraystring[1].length()];
+        for(int i = 0;i < arraystring[0].length();i++){
+            s1[i] = arraystring[0].substring(i,i+1);
+        }
+        for(int i = 0;i < arraystring[1].length();i++){
+            s2[i] = arraystring[1].substring(i,i+1);
+        }
+        int[][] b = FindMaxStrngArray(s1,s2);
+        Display(b,s1,s1.length - 1,s2.length - 1);
+//        char[] s1 = arraystring[0].toCharArray();
+//        char[] s2 = arraystring[1].toCharArray();
+//        System.out.println(s1);
+//        System.out.println(s2);
+//        for(int i = 0;i<s.length;i++){
+//            System.out.println(s[i]);
+//        }
     }
 }
